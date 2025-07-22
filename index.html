@@ -1,141 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book Gallery</title>
-  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YAR Tech Publication | Dharapublishers</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f1f5f9;
-      padding: 20px;
       margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #f1f5f9, #ffffff);
     }
-
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 40px;
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeInDown 1s ease-out;
     }
-
-    .loader {
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      position: relative;
+      padding: 80px 40px;
       text-align: center;
-      margin-top: 50px;
+      background-image: url('https://images.unsplash.com/photo-1532619187601-2f8a61b5f17b');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+    .hero h2, .hero p {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h2 {
+      font-size: 42px;
+      color: #fff;
+    }
+    .hero p {
       font-size: 18px;
-      color: #333;
+      color: #ddd;
     }
-
-    .books-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-      padding: 0 10px;
+    .books-preview {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px;
+      animation: fadeIn 1.2s ease-in;
     }
-
     .book-card {
-      background: #fff;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.4s ease;
-      opacity: 0;
-      transform: translateY(30px);
+      width: 220px;
+      text-align: center;
+      transition: transform 0.3s;
     }
-
-    .book-card.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     .book-card:hover {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
-
-    .book-image {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 15px;
+    .section {
+      padding: 60px 40px;
+      background-color: #e8f0fe;
+      animation: fadeIn 1.2s ease-in;
     }
-
-    .book-title {
+    .section h3 {
+      font-size: 28px;
+      color: #2c3e50;
+      text-align: center;
+    }
+    .section p {
       font-size: 18px;
-      font-weight: bold;
-      color: #1e3a8a;
-      margin-bottom: 8px;
+      max-width: 900px;
+      margin: 20px auto;
+      color: #34495e;
+      line-height: 1.6;
+      text-align: center;
     }
-
-    .book-author, .book-year, .book-genre {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 5px;
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
-
-<h1>📚 Our Book Collection</h1>
-<div class="loader" id="loader">Loading books...</div>
-<div class="books-container" id="bookList"></div>
-
-<script>
- const filePath = 'https://docs.google.com/spreadsheets/d/1WXO8b9rPdfT4dk3YekyvywgHV9vRpXXu/export?format=xlsx';
+  <header>
+    <h1>YAR Tech Publication</h1>
+    <nav>
+      <a href="index.html">Home</a><a href="books.html">Books</a>
 
 
-  function createBookCard(book) {
-    const card = document.createElement('div');
-    card.className = 'book-card';
-    card.innerHTML = `
-      ${book.Image ? `<img class="book-image" src="${book.Image}" alt="${book.Title}">` : ''}
-      <div class="book-title">${book.Title || 'Untitled'}</div>
-      <div class="book-author"><strong>Author:</strong> ${book.Author || 'Unknown'}</div>
-      <div class="book-year"><strong>Year:</strong> ${book.Year || 'N/A'}</div>
-      <div class="book-genre"><strong>Genre:</strong> ${book.Genre || 'N/A'}</div>
-    `;
-    return card;
-  }
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-  function displayBooks(data) {
-    const container = document.getElementById('bookList');
-    const loader = document.getElementById('loader');
-    loader.style.display = 'none';
+  <section class="hero">
+    <h2 class="animate__animated animate__fadeInDown">Empowering Knowledge Through Innovation</h2>
+    <p class="animate__animated animate__fadeInUp">A proud venture under Dharapublishers bringing you high-impact technology publications and resources.</p>
+  </section>
 
-    data.forEach(book => {
-      const card = createBookCard(book);
-      container.appendChild(card);
-    });
+  <section class="books-preview">
+    <div class="book-card animate__animated animate__zoomIn">
+      <h3>AI for Smart Agriculture</h3>
+      <p>Discover the latest trends in AI for sustainable farming.</p>
+    </div>
+    <div class="book-card animate__animated animate__zoomIn">
+      <h3>Future of IoT</h3>
+      <p>Explore how IoT transforms industries and daily life.</p>
+    </div>
+    <div class="book-card animate__animated animate__zoomIn">
+      <h3>Green Tech Innovations</h3>
+      <p>Technologies shaping a low-carbon future.</p>
+    </div>
+  </section>
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
+  <section class="section">
+    <h3>Aim</h3>
+    <p>YAR Tech Publication aims to foster a vibrant ecosystem of innovation by publishing cutting-edge research and technology-focused books. Our mission is to support the academic, industrial, and societal transformation by enabling access to impactful resources.</p>
+  </section>
 
-    document.querySelectorAll('.book-card').forEach(card => observer.observe(card));
-  }
+  <section class="section">
+    <h3>Scope</h3>
+    <p>Our publication scope spans emerging and interdisciplinary fields including Artificial Intelligence, Internet of Things, Sustainable Energy Systems, Smart Agriculture, Robotics, Cybersecurity, and Digital Transformation. We prioritize quality, originality, and relevance to ensure our readers stay ahead of the technological curve.</p>
+  </section>
 
-  async function loadExcel() {
-  try {
-    const response = await fetch(filePath);
-    const arrayBuffer = await response.arrayBuffer();
-    const workbook = XLSX.read(arrayBuffer, { type: "array" });
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    const data = XLSX.utils.sheet_to_json(sheet);
-    displayBooks(data);
-  } catch (err) {
-    document.getElementById('loader').textContent = 'Failed to load books.';
-    console.error('Error loading Excel:', err);
-  }
-}
-
-  window.addEventListener('DOMContentLoaded', loadExcel);
-</script>
-
+  <footer>
+    <p>&copy; 2025 YAR Tech Publication | Dharapublishers</p>
+  </footer>
 </body>
 </html>
