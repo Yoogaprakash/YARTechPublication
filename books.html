@@ -1,1 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Gallery</title>
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f5f9;
+      padding: 20px;
+      margin: 0;
+    }
 
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+    }
+
+    .loader {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .books-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      padding: 0 10px;
+    }
+
+    .book-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.4s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .book-card.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .book-card:hover {
+      transform: scale(1.04);
+    }
+
+    .book-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .book-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 8px;
+    }
+
+    .book-author, .book-year, .book-genre {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+      body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #f1f5f9, #ffffff);
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeInDown 1s ease-out;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      position: relative;
+      padding: 80px 40px;
+      text-align: center;
+      background-image: url('https://images.unsplash.com/photo-1532619187601-2f8a61b5f17b');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+    .hero h2, .hero p {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h2 {
+      font-size: 42px;
+      color: #fff;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #ddd;
+    }
+    .books-preview {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px;
+      animation: fadeIn 1.2s ease-in;
+    }
+    .book-card {
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 20px;
+      width: 220px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .book-card:hover {
+      transform: scale(1.05);
+    }
+    .section {
+      padding: 60px 40px;
+      background-color: #e8f0fe;
+      animation: fadeIn 1.2s ease-in;
+    }
+    .section h3 {
+      font-size: 28px;
+      color: #2c3e50;
+      text-align: center;
+    }
+    .section p {
+      font-size: 18px;
+      max-width: 900px;
+      margin: 20px auto;
+      color: #34495e;
+      line-height: 1.6;
+      text-align: center;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+  </style>
+</head>
+<body>
+ <header>
+    <h1>YAR Tech Publication</h1>
+    <nav>
+      <a href="index.html">Home</a><a href="books.html">Books</a>
+
+
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+<h3>📚 Our Book Collection</h3>
+<div class="loader" id="loader">Loading books...</div>
+<div class="books-container" id="bookList"></div>
+
+<script>
+ const filePath = 'https://docs.google.com/spreadsheets/d/1WXO8b9rPdfT4dk3YekyvywgHV9vRpXXu/export?format=xlsx';
+
+
+  function createBookCard(book) {
+    const card = document.createElement('div');
+    card.className = 'book-card';
+    card.innerHTML = `
+      ${book.Image ? `<img class="book-image" src="${book.Image}" alt="${book.Title}">` : ''}
+      <div class="book-title">${book.Title || 'Untitled'}</div>
+      <div class="book-author"><strong>Author:</strong> ${book.Author || 'Unknown'}</div>
+      <div class="book-year"><strong>Year:</strong> ${book.Year || 'N/A'}</div>
+      <div class="book-genre"><strong>Genre:</strong> ${book.Genre || 'N/A'}</div>
+    `;
+    return card;
+  }
+
+  function displayBooks(data) {
+    const container = document.getElementById('bookList');
+    const loader = document.getElementById('loader');
+    loader.style.display = 'none';
+
+    data.forEach(book => {
+      const card = createBookCard(book);
+      container.appendChild(card);
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.book-card').forEach(card => observer.observe(card));
+  }
+
+  async function loadExcel() {
+  try {
+    const response = await fetch(filePath);
+    const arrayBuffer = await response.arrayBuffer();
+    const workbook = XLSX.read(arrayBuffer, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = XLSX.utils.sheet_to_json(sheet);
+    displayBooks(data);
+  } catch (err) {
+    document.getElementById('loader').textContent = 'Failed to load books.';
+    console.error('Error loading Excel:', err);
+  }
+}
+
+  window.addEventListener('DOMContentLoaded', loadExcel);
+</script>
+ <footer>
+    <p>&copy; 2025 YAR Tech Publication | Dharapublishers</p>
+  </footer>
+
+</body>
+</html>
