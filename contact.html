@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | YAR Tech Publication</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | YAR Tech Publication</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #f1f5f9;
-    }
+    /* Header Styling */
     header {
       background-color: #2c3e50;
       color: white;
@@ -32,113 +27,131 @@
     nav a:hover {
       text-decoration: underline;
     }
-    .form-section {
-      position: relative;
-      max-width: 800px;
-      margin: 60px auto;
-      background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      animation: fadeIn 1.2s ease-in;
-      overflow: hidden;
+
+    /* Contact Page Styling */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fdfdfd;
+      color: #333;
     }
-    .form-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 0;
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 60px 10%;
     }
-    .form-section h2, .form-group, button {
-      position: relative;
-      z-index: 1;
+    .form-section, .info-section {
+      flex: 1 1 45%;
+      margin: 20px;
     }
-    .form-section h2 {
+    h2 {
       text-align: center;
-      color: #ffffff;
-      margin-bottom: 20px;
-      text-shadow: 1px 1px 2px #000;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      color: #ffffff;
+      font-size: 30px;
+      color: #2c3e50;
     }
     input, textarea {
       width: 100%;
       padding: 12px;
-      border-radius: 6px;
+      margin-bottom: 20px;
       border: 1px solid #ccc;
+      border-radius: 5px;
       font-size: 16px;
     }
-    button {
-      background: #2c3e50;
+    .btn {
+      background-color: #e74c3c;
       color: white;
-      padding: 12px 24px;
       border: none;
-      border-radius: 6px;
+      padding: 14px 28px;
       font-size: 16px;
       cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s ease;
     }
-    button:hover {
-      background: #1a252f;
+    .btn:hover {
+      background-color: #c0392b;
     }
-    footer {
-      background: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px;
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .info-item img {
+      width: 24px;
+      margin-right: 12px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 30px 5%;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>YAR Tech Publication</h1>
     <nav>
-      <a href="index.html">Home</a><a href="books.html">Books</a>
-
-
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
 
-  <section class="form-section animate__animated animate__fadeIn">
-    <h2>Get in Touch</h2>
-    <form>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
+  <h2>📞 CONTACT YAR TECH SERVICES</h2>
+  <p style="text-align: center; font-size: 18px; margin-top: -10px;">
+    Get in touch with us for publishing, tech solutions, and academic services. We're here to help you succeed.
+  </p>
+
+  <div class="container">
+    <div class="form-section">
+      <form>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email ID" required />
+        <input type="tel" name="phone" placeholder="Your Phone Number" required />
+        <textarea rows="6" name="message" placeholder="Write Your Query Here..." required></textarea>
+        <button type="submit" class="btn">SEND MESSAGE</button>
+      </form>
+    </div>
+
+    <div class="info-section">
+      <div class="info-item">
+        <img src="https://img.icons8.com/ios-filled/50/marker.png" alt="Address" />
+        YAR Tech Services, Martuthu Pandiyar Nagar, Allinagaram,<br/>Sivagangai, Tamil Nadu – 630611
       </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+      <div class="info-item">
+        <img src="https://img.icons8.com/ios-filled/50/new-post.png" alt="Email" />
+        info@dharapublishers.com
       </div>
-
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
+      <div class="info-item">
+        <img src="https://img.icons8.com/ios-filled/50/phone.png" alt="Phone" />
+        +91 73053 70190
       </div>
+      <div class="info-item">
+        <img src="https://img.icons8.com/ios-filled/50/whatsapp.png" alt="WhatsApp" />
+        <a href="https://wa.me/917305370190" style="color: #2c3e50; text-decoration: none;">Click here to message on WhatsApp</a>
+      </div>
+      <div class="info-item">
+        <img src="https://img.icons8.com/ios-filled/50/clock.png" alt="Hours" />
+        Mon - Sat, 9:00 AM to 7:00 PM
+      </div>
+    </div>
+  </div>
 
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 YAR Tech Publication | Dharapublishers</p>
-  </footer>
 </body>
 </html>
